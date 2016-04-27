@@ -40,17 +40,23 @@
     ~ .label:not(.fixed) {
       color: $input-text-highlight-color;
     }
+    ~ .label > .required {
+      color: $input-text-required-color;
+    }
+    ~ .hint {
+      opacity: $input-hint-opacity;
+    }
     ~ .icon {
       color: $input-text-highlight-color;
     }
   }
-  &:focus, &.filled, &[type='date'], &[type='time'] {
+  &:focus, &.filled, &[type="date"], &[type="time"] {
     ~ .label:not(.fixed) {
       top: $input-focus-label-top;
       font-size: $input-label-font-size;
     }
   }
-  &.filled ~ .label.fixed {
+  &.filled ~ .label.fixed, &.filled ~ .hint {
     display: none;
   }
 }
@@ -66,6 +72,23 @@
   transition-timing-function: $animation-curve-default;
   transition-duration: $animation-duration;
   transition-property: top, font-size, color;
+  &.fixed ~ .hint {
+    display: none;
+  }
+}
+
+.hint {
+  position: absolute;
+  top: $input-padding + (1.5 * $input-field-padding);
+  left: 0;
+  font-size: $input-field-font-size;
+  line-height: $input-field-font-size;
+  color: $input-text-label-color;
+  pointer-events: none;
+  opacity: 0;
+  transition-timing-function: $animation-curve-default;
+  transition-duration: $animation-duration;
+  transition-property: opacity;
 }
 
 .bar {
@@ -113,17 +136,12 @@
   > .input {
     margin-top: 1px;
     border-bottom-color: $input-text-error-color;
-    &:focus {
-      ~ .label:not(.fixed) {
-        color: $input-text-error-color;
-      }
-      ~ .bar:before, ~ .bar:after {
-        background-color: $input-text-error-color;
-      }
-    }
   }
   > .counter, > .label {
     color: $input-text-error-color;
+  }
+  > .label > .required {
+    color: $input-text-required-color;
   }
 }
 
